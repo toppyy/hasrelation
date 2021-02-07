@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "NODE_ENV=dev nodemon index.js",
+    "init_db_dev": "NODE_ENV=dev node init_db.js",
+    "init_db": "node init_db.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -1,8 +1,7 @@
-console.log('NODE_ENV is',process.env.NODE_ENV)
 
 if (process.env.NODE_ENV === 'dev') {
   // We only want these in dev
-  // In prod they are set in docker-compose
+  // In prod they are set in by Heroku
   require('dotenv').config()
 }
 const express = require('express');
@@ -12,6 +11,8 @@ const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5000;
 
 const app = express()
+
+
  
 
 // Routers
