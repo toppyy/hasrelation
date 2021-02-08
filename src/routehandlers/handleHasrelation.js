@@ -6,30 +6,30 @@ const isNotNumber = (input) => !Number.isInteger(input*1)
 
 const handleHasrelation = function(req,res) {
 
-    console.log('requested rel', req.params)
-
     const from = req.params.from
     const to   = req.params.to
 
-    const err_msg = 'Specify from and to. Eg: ../hasrelation/1/19720'
-
-    let response = 'ok'
-
-    if (!from | !to) {
-        response = err_msg
-    }
-
-    if (isNotNumber(from) || isNotNumber(to)) {
-        response = err_msg
-    }
+    const err_msg = 'Expected integers. Eg: ../hasrelation/1/19720'
 
     const nw = getNetwork()
+
+
+    if (nw.isUpAndRunning() === false) {
+        res.send(
+            'Try again in a few seconds. Pulling data from DB.'
+        )
+        return
+
+    }
     
-    res.send({
-        from: from,
-        to: to,
-        hasRelation: nw.hasRelation(from,to)
-    })
+    res.send(
+        ( isNotNumber(from) || isNotNumber(to) ) ? err_msg : 
+        {
+            from: from,
+            to: to,
+            hasRelation: nw.hasRelation(from,to)
+        }
+    )
 
 }
 

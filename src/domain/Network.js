@@ -40,6 +40,7 @@ const Network = class {
     constructor() {
         this.relations     = undefined
         this.adjacencylist = undefined
+        this.upAndRunning  = false
     }
 
     getAdjacencyList = () => {
@@ -61,7 +62,11 @@ const Network = class {
 
         this.adjacencylist = createAdjacencyList(relations)
 
-        console.log(`${this.relations.length} relations stored amongst ${Object.values(this.nodes).length} nodes.`)
+        this.nodeCount = Object.values(this.nodes).length
+
+        console.log(`${this.relations.length} relations stored amongst ${this.nodeCount} nodes.`)
+
+        this.upAndRunning = true
 
     }
 
@@ -69,9 +74,19 @@ const Network = class {
         return this.relations.length
     }
 
+    getNodeCount = () => {
+        return this.nodeCount
+    }
+
+    isUpAndRunning = () => {
+        return this.upAndRunning
+    }
+
 
     hasRelation = (from,to) => {
-        const visited = JSON.parse(JSON.stringify(this.nodes))
+        // Implementes BFS
+
+        const visited = JSON.parse(JSON.stringify(this.nodes)) // Clone this.nodes
 
         if (visited[from] == undefined) {
             return false
@@ -84,12 +99,12 @@ const Network = class {
         queue.enqueue(from)
         visited[from].visited = true
 
-        let depth = 0
+        let distance = 0
 
         while ( queue.isNotEmpty() ) {
 
             let node = queue.dequeue()
-            depth = depth + 1
+            distance = distance + 1
 
             let nbs = this.adjacencylist[node].adjacent
 
@@ -97,13 +112,10 @@ const Network = class {
  
                 let nb = nbs[i]
 
-                console.log(nb)
-            
                 if (nb == to) {
-                    console.log('score', nb, to)
                     return {
                         result: true,
-                        depth: depth
+                        distance: distance
                     }
                 }
 
@@ -118,7 +130,7 @@ const Network = class {
 
         return {
             result: false,
-            depth: -1
+            distance: -1
         }
 
 

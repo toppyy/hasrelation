@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get('/',(req,res) => {
     res.send(
-        'Specify from and to. Eg: ../hasrelation/1/3'
+        'Specify from and to. Eg: ../hasrelation/1/19720'
     )
 })
 
