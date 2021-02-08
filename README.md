@@ -4,7 +4,7 @@
 
 Exeample running in [Heroku](http://hasrelation.herokuapp.com).
 
-For example, to see if *1* and *2376* are have relation in the network, query: 
+For example, to see if *6* and *2376* are have relation in the network, query: 
 `http://hasrelation.herokuapp.com/hasrelation/6/2376`
 
 This should return
