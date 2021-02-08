@@ -9,7 +9,7 @@ const handleHasrelation = function(req,res) {
     const from = req.params.from
     const to   = req.params.to
 
-    const err_msg = 'Expected integers. Eg: ../hasrelation/2376/87'
+    const err_msg = 'Expected integers. Eg: ../hasrelation/7/9876'
 
     const nw = getNetwork()
 

@@ -71,9 +71,10 @@ const init_db = (rows) => {
 const data = fs.readFileSync('./data/git_web_ml/edge_sample.csv', {encoding:'utf8', flag:'r'}); 
 
   
-const rows = data.split('\n').map(row => row.split(','))
+const rows = data.split('\n')
+            .filter(row =>  row.match(/^[0-9]/)  ) // Remove header and trailing blank row
+            .map(row => row.split(','))
 
-rows.shift() // Remove header
 
 const from = rows.map(row => row[0]*1)
 const to   = rows.map(row => row[1]*1)
