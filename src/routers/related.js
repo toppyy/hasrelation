@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get('/',(req,res) => {
     res.send(
-        'Specify node to analyze. Eg: ./related/19720'
+        'Specify node to analyze. Eg: ./related/9876'
     )
 })
 
