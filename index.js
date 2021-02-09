@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Routers
 const root          = require('./src/routers/root')
 const hasrelation   = require('./src/routers/hasrelation')
+const related       = require('./src/routers/related')
 
 // Init network
 
@@ -36,6 +37,7 @@ getRelations((data)  => {
 // bind
 
 app.use('/hasrelation',hasrelation)
+app.use('/related',related)
 
 app.use('/',root)
 

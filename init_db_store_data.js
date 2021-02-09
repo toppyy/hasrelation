@@ -79,10 +79,10 @@ const rows = data.split('\n')
 const from = rows.map(row => row[0]*1)
 const to   = rows.map(row => row[1]*1)
 
+
 const to_db = [ from.concat(to), to.concat(from) ] // Store as two-way relations
 
 
-// Create tbl and store data
 
 
 // Create table and store rows

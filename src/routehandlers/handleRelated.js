@@ -4,17 +4,18 @@ const { getNetwork }       = require('../domain/Network')
 const isNotNumber = (input) => !Number.isInteger(input*1)
 
 
-const handleHasrelation = function(req,res) {
+const handleRelated = function(req,res) {
 
     const from = req.params.from
-    const to   = req.params.to
+    const maxdistance = req.params.maxdistance
 
-    const err_msg = 'Expected integers. Eg: ../hasrelation/7/9876'
+    const err_msg = 'Expected an integer. Eg: ../related/9876'
 
-    if ( isNotNumber(from) || isNotNumber(to) ) {
+    if ( isNotNumber(from) ) {
         res.send(err_msg)
         return
     }
+
 
     const nw = getNetwork()
 
@@ -27,15 +28,14 @@ const handleHasrelation = function(req,res) {
 
     }
 
-    const relation = nw.hasRelation(from,to)
+    const related = nw.related(from,maxdistance)
     
     res.send({
             from: from,
-            to: to,
-            hasRelation: relation.length > 0,
-            distance: relation.length > 0 ? relation[0].distance : -1
+            relatedCount: related.length,
+            related: related
     })
 
 }
 
-module.exports = handleHasrelation
+module.exports = handleRelated

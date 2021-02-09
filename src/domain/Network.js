@@ -82,59 +82,79 @@ const Network = class {
         return this.upAndRunning
     }
 
+    related = (from,maxdistance) => {
+        return this.BFS({ from: from, maxdistance: maxdistance })
+    }
 
     hasRelation = (from,to) => {
-        // Implementes BFS
+        return this.BFS({ from: from, to: to })
+    }
+
+    BFS = params => {
 
         const visited = JSON.parse(JSON.stringify(this.nodes)) // Clone this.nodes
 
+        const from          = params.from
+        const to            = params.to
+        const maxdistance   = params.maxdistance
+
+        
+
         if (visited[from] == undefined) {
-            return false
+            return []
         }
-        if (visited[to] == undefined) {
-            return false
+
+        if (to & visited[to] == undefined) {
+            return []
         }
+
         const queue = new Queue()
 
-        queue.enqueue(from)
+        queue.enqueue({ node: from, distance: 0})
         visited[from].visited = true
 
-        let distance = 0
+
+        let related = []
 
         while ( queue.isNotEmpty() ) {
 
-            let node = queue.dequeue()
-            distance = distance + 1
+            let nodeObj = queue.dequeue()
+            let node = nodeObj.node
+            let distance = nodeObj.distance
 
+
+            if (distance > maxdistance) {
+                return related
+            }
+
+
+            related.push({ node: node, distance: distance  } )
+        
             let nbs = this.adjacencylist[node].adjacent
 
             for (let i = 0; i < nbs.length; i++) {
  
                 let nb = nbs[i]
+                let nbObj = { node: nb, distance: distance+1 }
 
                 if (nb == to) {
-                    return {
-                        result: true,
-                        distance: distance
-                    }
+                    return [nbObj] // Allways return an array
                 }
 
                 if (visited[nb].visited) {
                     continue
                 }
-                queue.enqueue(nb)
+                queue.enqueue(nbObj)
                 visited[nb].visited = true
             }
 
         }
 
-        return {
-            result: false,
-            distance: -1
-        }
-
+        return related
 
     }
+
+
 
 }
 
